@@ -320,7 +320,7 @@ This Truffle box is already configured to connect to three RSK networks: regtest
 - Setup an account & get R-BTC
 - RSK network gas price
 - Your wallet mnemonic
-- Choose the network in the app
+- Choose the network
 
 ### RSK regtest (Local node)
 
@@ -442,10 +442,10 @@ Interact with the token published on an RSK network using Truffle console, doing
 At this point, we have installed all requirements and created a token using Truffle framework and Open Zeppelin smart contracts library,
 connected to an RSK local node (Regtest), the RSK Testnet and the RSK Mainnet.
 
-- **Find more documentation**
+**Find more documentation**
 
 Check out the [RSK developers portal](https://developers.rsk.co/).
 
-- **Do you have questions?**
+**Do you have questions?**
 
 Ask in the [RSK chat](https://gitter.im/rsksmart/getting-started).
