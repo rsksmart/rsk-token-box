@@ -5,14 +5,21 @@ It includes network configurations for local node (regtest), Testnet and Mainnet
 
 ## Requirements
 
-1. [NPM (Node Package Manager)](https://nodejs.org/en/) and 
-Node.js are needed, though both are usually installed at once.
+There are a few technical requirements before we start. 
+To use `Truffle boxes`, you need to have installed in your computer:
 
-Go to [Node.js](https://nodejs.org/en/) if you need to install it.
+- Git
+- a POSIX compliant shell
+- cURL
+- Node.js and NPM
+- a code editor
 
-2. Truffle
+If you don't have any of them installed, go to the tutorial [Truffle boxes prerequisites](https://developers.rsk.co/tutorials/truffle-boxes/truffle-boxes-prerequisites/) which have all the instructions to setup these requirements.
 
-Install Truffle globally:
+**Truffle framework**
+
+Once you have those requirements installed, you only need one command to install `Truffle`.
+It is better to do it globally:
 
 ```shell
 npm install -g truffle
@@ -106,7 +113,8 @@ Inside the token, we define some basic information about the token: `name`, `sym
 
 To inherit the library's attributes and functions, we simply define our contract as a `ERC20Mintable` using the `is` keyword in this way.
 
-5. Compile and migrate the smart contract. 
+4. Compile the smart contract. 
+
 Note inside the development console we don't preface commands with `truffle`.
 
 > To make sure you're in the development console, the command prompt must be `truffle(develop)>`
@@ -118,6 +126,8 @@ compile
 The `compile output` should be similar to:
 
 ![truffle compile](/images/image-02.png)
+
+5. Deploy (migrate) the smart contract.
 
 ```shell
 migrate
@@ -314,30 +324,49 @@ In the Truffle console, enter this command to exit the terminal:
 
 ## Using RSK networks
 
-This Truffle box is already configured to connect to three RSK networks: regtest (local node), testnet and mainnet. We need only to do some items:
+This Truffle box is already configured to connect to three RSK networks: 
 
-- Install and run a local node
-- Setup an account & get R-BTC
-- RSK network gas price
-- Your wallet mnemonic
-- Choose the network
+1. regtest (local node)
+2. testnet
+3. mainnet
 
-### RSK regtest (Local node)
+Testnet will be used here. 
 
-To install and run a local node, follow [these instructions](https://developers.rsk.co/quick-start/step1-install-rsk-local-node/ "Install RSK local node - RSK developers portal").
+We need to do some tasks:
+
+- Setup an account and get R-BTC
+- Update RSK network gas price
+- Connect to an RSK network
+- Deploy in the network of your choose
 
 ### Setup an account & get R-BTC
 
-- Get an address and learn how works the [account based RSK addresses](https://developers.rsk.co/rsk/architecture/account-based/ "Account based RSK addresses - RSK Developers Portal").
-- Paste the wallet mnemonic in the file `.secret`, located in the folder project, and save it.
-- For the RSK Testnet, get tR-BTC from [our faucet](https://faucet.testnet.rsk.co/).
-- For the RSK Mainnet, get R-BTC from [an exchange](https://developers.rsk.co/rsk/rbtc/).
+1. Create a wallet
+
+The easy way to setup an account is using a web3 wallet injected in the browser.
+Some options are:
+- [Metamask](https://metamask.io/)
+- [Nifty](https://www.poa.network/for-users/nifty-wallet)
+
+Select the RSK Network in the web wallet.
+- Nifty: select in the dropdown list
+- Metamask: go to [RSK Testnet](https://developers.rsk.co/wallet/use/metamask/) to configure it in `Custom RPC`
+
+You can learn more about [account based RSK addresses](https://developers.rsk.co/rsk/architecture/account-based/ "Account based RSK addresses - RSK Developers Portal").
 
 Take a look `truffle-config.js` file to realize that we are using `HDWalletProvider` with RSK Networks derivations path:
 - RSK Testnet dpath: `m/44’/37310’/0’/0`
 - RSK Mainnet dpath: `m/44’/137’/0’/0`
 
 For more information check [RSKIP57](https://github.com/rsksmart/RSKIPs/blob/master/IPs/RSKIP57.md).
+
+2. Update `.secret` file
+
+After create your wallet, update your mnemonic in the file `.secret`, located in the folder project, and save it.
+
+3. Get some R-BTCs:
+- For the RSK Testnet, get tR-BTC from [our faucet](https://faucet.testnet.rsk.co/).
+- For the RSK Mainnet, get R-BTC from [an exchange](https://developers.rsk.co/rsk/rbtc/).
 
 ### Setup the gas price
 
@@ -370,16 +399,6 @@ In the `truffle-config.js`, we are reading the parameter `minimumGasPrice` in ea
 
 For more information about the **Gas** and **minimumGasPrice** please go to the [gas page](https://developers.rsk.co/rsk/rbtc/gas/ "Gas - RSK Developers Portal").
 
-### Connect to RSK regtest (local node)
-
-First ensure you have a local node running.
-
-```shell
-truffle console
-```
-
-> Any network defined with the name development is considered the default network.
-
 ### Connect to RSK Testnet or Mainnet
 
 Run the development console for any RSK network.
@@ -410,24 +429,29 @@ To get the network ID, run this command:
 (await web3.eth.net.getId()).toString()
 ```
 
-For the local node, the network ID is `33`.
-
-![getId local](/images/image-18.png)
-
 List of network IDs:
 - mainnet: 30
 - testnet: 31
 - regtest (local node): 33
 
+Exit the Truffle console:
+
+```shell
+.exit
+```
+
 ### Compile and migrate the smart contracts. 
 
 We will do it running the below commands directly in the terminal, without using the truffle console, this is to show you an alternative.
 
-On any of the networks, run this commands in a terminal (not in Truffle console):
+On any of the networks, run this commands in a terminal (not in Truffle console).
+To use Testnet or Mainnet, you need to specify this using the parameter `-- network`:
 
 ```shell
-truffle migrate
+truffle migrate --network testnet
 ```
+
+The migrate process in a real blockchain takes more time, because Truffle creates some transactions which need to be mined on the blockchain.
 
 ### Where to go from here
 
